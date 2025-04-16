@@ -1,0 +1,36 @@
+name: Bicep Linting
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  allFiles: ${{ github.event_name != 'pull_request' || ( github.base_ref == 'main') }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.ID_CLIENT_ID }}
+          tenant-id: ${{ secrets.ID_TENANT_ID }}
+          subscription-id: ${{ secrets.ID_SUBSCRIPTION_ID }}
+      - uses: maikvandergaag/action-biceplint@main
+        with:
+          allfiles: ${{ env.allFiles }}
+          create-sarif: true
+          markdown-report: false
+          sarif-output-path: bicep-lint.sarif
+      - name: Upload SARIF file
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: bicep-lint.sarif
+          category: bicep-linting
