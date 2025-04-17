@@ -1,4 +1,4 @@
-name: Bicep Linting
+name: Build Infra Structure as Code
 
 on:
   push:
@@ -14,7 +14,7 @@ permissions:
   security-events: write
 
 jobs:
-  lint:
+  build:
     environment: demo
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +37,7 @@ jobs:
           sarif_file: bicep-lint.sarif
           category: bicep-linting
       - uses: actions/upload-artifact@v4
-        name: Upload Bicep artifacts
+        name: Upload IaC artifacts
         with:
           name: iac
           path: |

@@ -1,16 +1,10 @@
 name: Software Development Platform
 
 on:
-  push:
-    paths:
-      - bicep/sdp/*
-      - .github/workflows/sdp-prerequisites.yml
-      - bicep/modules/*
-      - src/*
-    branches: [ main, develop ]
-  pull_request:
-    branches: [ main ]
-
+  workflow_run:
+    workflows: ["Build Infra Structure as Code"]
+    branches:
+      - 'main'
   workflow_dispatch:
 
 env:
