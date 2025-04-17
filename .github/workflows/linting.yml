@@ -36,3 +36,10 @@ jobs:
         with:
           sarif_file: bicep-lint.sarif
           category: bicep-linting
+      - uses: actions/upload-artifact@v4
+        name: Upload Bicep artifacts
+        with:
+          name: iac
+          path: 
+            ./**/*.bicep
+            ./**/*.bicepparam
