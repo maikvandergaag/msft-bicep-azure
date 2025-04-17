@@ -1,6 +1,5 @@
 {
     "experimentalFeaturesEnabled": {
-        "localDeploy": true
     },
     "analyzers": {
         "core": {

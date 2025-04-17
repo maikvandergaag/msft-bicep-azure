@@ -26,7 +26,7 @@ param location string = deployment().location
 @description('The environment were the service is beign deployed to (tst, acc, prd, dev)')
 param env string
 
-var monitoringGroupName = res.getName('monitoring', env, 'sponsor').resourceGroup
+var monitoringGroupName = res.getName('mon', env, 'sponsor').resourceGroup
 var applicationGroupName = res.getName('app', env, 'sponsor').resourceGroup
 var storageName = res.getName(name, env, '').storageAccount
 var logAnalyticsName = res.getName(name, env, '').logAnalytics

@@ -14,6 +14,7 @@ permissions:
 
 jobs:
   lint:
+    environment: demo
     runs-on: ubuntu-latest
     steps:
       - name: Azure login
