@@ -3,6 +3,7 @@ name: Software Development Platform
 on:
   workflow_run:
     workflows: ["Build Infra Structure as Code"]
+    types: [completed]
     branches:
       - 'main'
   workflow_dispatch:
