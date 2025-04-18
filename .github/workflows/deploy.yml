@@ -1,4 +1,4 @@
-name: Software Development Platform
+name: Deploy to Azure
 
 on:
   workflow_run:
@@ -11,25 +11,21 @@ on:
       workflow_run_id:
         description: 'Workflow run ID'
         required: true
-        default: '0'
         type: string
 
 jobs:
   deploy:
     environment: demo
-    name: Deploy SDP TST
-    if: github.event_name != 'pull_request'
+    name: Deploy to Azure
     permissions:
       contents: read
       id-token: write
       actions: read
     runs-on: ubuntu-latest
     steps:
-      - run: echo "event name is:" ${{ github.event_name }} 
-      - run: echo "event type is:" ${{ github.event.action }} 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v4
         with:
-          run-id: ${{ github.event.workflow_run.id }}
+          run-id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || inputs.workflow_run_id }}
           github-token: ${{ github.token}}
           name: iac
