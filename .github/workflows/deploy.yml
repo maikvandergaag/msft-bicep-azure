@@ -41,7 +41,6 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            dir
             az stack sub create --name 'bicep-heroes-app' \
                     --template-file 'main.bicep' \
                     --parameters 'main-param.bicepparam' \
