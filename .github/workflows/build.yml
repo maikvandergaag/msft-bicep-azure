@@ -1,4 +1,4 @@
-name: Build Infra Structure as Code
+name: Build IaC
 
 on:
   push:
