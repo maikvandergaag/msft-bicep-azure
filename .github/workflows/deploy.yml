@@ -41,10 +41,10 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            az stack sub create --name 'bicep-heroes-app' `
-                    --template-file '.\iac\main.bicep' `
-                    --parameters '.\iac\main-param.bicepparam' `
-                    --deny-settings-mode 'denyWriteAndDelete' `
-                    --action-on-unmanage 'deleteAll' `
-                    --location 'westeurope' `
+            az stack sub create --name 'bicep-heroes-app' \
+                    --template-file '.\iac\main.bicep' \
+                    --parameters '.\iac\main-param.bicepparam' \
+                    --deny-settings-mode 'denyWriteAndDelete' \
+                    --action-on-unmanage 'deleteAll' \
+                    --location 'westeurope' \
                     --yes
