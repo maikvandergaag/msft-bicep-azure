@@ -1,5 +1,5 @@
 using './main.bicep'
 
-param name = 'stack-demo-04'
+param name = 'bicep-azure'
 param env = 'prd'
 
