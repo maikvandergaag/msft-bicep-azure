@@ -1,5 +1,5 @@
 name: Deploy to Azure
-run-name: Deploy to Azure - ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_branch || inputs.workflow_run_id }}
+run-name: Deploy to Azure - ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || inputs.workflow_run_id }}
 
 on:
   workflow_run:
@@ -24,9 +24,27 @@ jobs:
       actions: read
     runs-on: ubuntu-latest
     steps:
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.ID_CLIENT_ID }}
+          tenant-id: ${{ secrets.ID_TENANT_ID }}
+          subscription-id: ${{ secrets.ID_SUBSCRIPTION_ID }}
       - name: Download coverage artifacts
         uses: actions/download-artifact@v4
         with:
           run-id: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.id || inputs.workflow_run_id }}
           github-token: ${{ github.token}}
           name: iac
+      - name: Azure CLI script
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az stack sub create --name 'bicep-heroes-app' `
+                    --template-file '.\iac\main.bicep' `
+                    --parameters '.\iac\main-param.bicepparam' `
+                    --deny-settings-mode 'denyWriteAndDelete' `
+                    --action-on-unmanage 'deleteAll' `
+                    --location 'westeurope' `
+                    --yes

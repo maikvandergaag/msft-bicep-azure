@@ -63,7 +63,7 @@ module rbac '../module/rgrbac.bicep' = {
     identity: identity.outputs.idPrincipalId
     roleDefinitionId: '8e3af657-a8ff-443c-a75c-2fe8c4bcb635'
   }
-  scope: resourceGroup(bicepgroup)
+  scope: subscription()
 }
 
 output clientId string = identity.outputs.idClientId

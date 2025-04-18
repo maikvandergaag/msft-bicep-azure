@@ -1,3 +1,5 @@
+targetScope = 'subscription'
+
 metadata info = {
   title: 'Resource Group RBAC assignment'
   description: 'Module for doing a RBAC assignment on a resource group'
@@ -20,7 +22,7 @@ resource roleDefinition 'Microsoft.Authorization/roleDefinitions@2022-04-01' exi
 }
 
 resource rbac 'Microsoft.Authorization/roleAssignments@2022-04-01' =  {
-  name:  guid(identity, roleDefinitionId)
+  name:  guid(identity, roleDefinitionId, subscription().subscriptionId)
   properties:{
     roleDefinitionId: roleDefinition.id
     principalId: identity
