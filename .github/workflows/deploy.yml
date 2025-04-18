@@ -7,6 +7,12 @@ on:
     branches:
       - 'main'
   workflow_dispatch:
+    inputs:
+      workflow_run_id:
+        description: 'Workflow run ID'
+        required: true
+        default: '0'
+        type: string
 
 jobs:
   deploy:
@@ -19,8 +25,11 @@ jobs:
       actions: read
     runs-on: ubuntu-latest
     steps:
+      - run: echo "event name is:" ${{ github.event_name }} 
+      - run: echo "event type is:" ${{ github.event.action }} 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v4
         with:
           run-id: ${{ github.event.workflow_run.id }}
           github-token: ${{ github.token}}
+          name: iac
