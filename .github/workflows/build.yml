@@ -29,6 +29,7 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
+            bicep --version
             bicep test 'test/test.run.bicep'
       - uses: maikvandergaag/action-biceplint@main
         with:
