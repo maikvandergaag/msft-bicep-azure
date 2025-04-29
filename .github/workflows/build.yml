@@ -28,6 +28,7 @@ jobs:
         uses: anthony-c-martin/setup-bicep@v0.1
       - name: Test Bicep
         run: |
+          ls
           bicep --version
           bicep test 'test/test.run.bicep'
       - uses: maikvandergaag/action-biceplint@main
