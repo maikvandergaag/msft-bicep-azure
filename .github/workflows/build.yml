@@ -33,6 +33,7 @@ jobs:
           markdown-report: false
           sarif-output-path: bicep-lint.sarif
       - name: Test Bicep
+        if: always()
         run: |
           ${{ toJson(steps.lint.outputs) }}
 
