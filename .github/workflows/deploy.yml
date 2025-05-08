@@ -3,7 +3,7 @@ run-name: Deploy to Azure - ${{ github.event_name == 'workflow_run' && github.ev
 
 on:
   workflow_run:
-    workflows: ["Build Infra Structure as Code"]
+    workflows: ["Build IaC"]
     types: [completed]
     branches:
       - 'main'
