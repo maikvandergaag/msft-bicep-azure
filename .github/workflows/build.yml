@@ -33,23 +33,11 @@ jobs:
           markdown-report: false
           sarif-output-path: bicep-lint.sarif
       - name: Upload SARIF file
-        if: steps.lint.outcome == 'failure'
+        if: ${{ (failure() && steps.lint.outcome == 'failure') || (success() && steps.lint.outcome == 'success') }}
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: bicep-lint.sarif
           category: bicep-linting
-      - name: Test Bicep
-        if: always()
-        run: |
-          ${{ toJson(steps.lint.outputs) }}
-
-          ${{ toJson(steps.lint.outcome) }}
-
-          ${{ toJson(steps.lint.conclusion) }}
-
-          ${{ toJson(steps.lint) }}
-
-
       - uses: actions/upload-artifact@v4
         name: Upload IaC artifacts
         with:
