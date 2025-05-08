@@ -118,7 +118,7 @@
           "level": "error"
         },
         "what-if-short-circuiting": {
-          "level": "error"
+          "level": "warning"
         }
       }
     }

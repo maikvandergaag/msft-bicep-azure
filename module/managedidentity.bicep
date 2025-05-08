@@ -30,12 +30,12 @@ Array of objects that specify the federation between a repository and the manage
 param gitHubFederation array = []
 
 
-resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-01-31' = {
+resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2025-01-31-preview' = {
   name: name
   location: location
 }
 
-resource federatedCredentials 'Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials@2023-01-31'  =[for item in gitHubFederation: {
+resource federatedCredentials 'Microsoft.ManagedIdentity/userAssignedIdentities/federatedIdentityCredentials@2025-01-31-preview'  =[for item in gitHubFederation: {
   name: 'github-env-${item.githubEnvironment}'
   parent: identity
   properties: {

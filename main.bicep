@@ -54,6 +54,7 @@ module appInsights 'module/applicationinsights.bicep' = {
   params: {
     logAnalyticsWorkspaceId: loganalytics.outputs.workspaceId
     name: appInsightsName
+    location: location
   }
   dependsOn: [monitoringGroup]
   scope: resourceGroup(monitoringGroupName)
@@ -63,6 +64,7 @@ module loganalytics 'module/loganalytics.bicep' = {
   name: 'deploy-loganalytics'
   params: {
     name: logAnalyticsName
+    location: location
   }
   dependsOn: [monitoringGroup]
   scope: resourceGroup(monitoringGroupName)
