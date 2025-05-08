@@ -36,13 +36,14 @@ jobs:
           bicep test 'test/test.run.bicep'
       - uses: maikvandergaag/action-biceplint@main
         id: lint
+        if: always()
         with:
           allfiles: ${{ env.allFiles }}
           create-sarif: true
           markdown-report: false
           sarif-output-path: bicep-lint.sarif
       - name: Upload SARIF file
-        if: ${{ (steps.lint.conclusion == 'failure' || steps.lint.conclusion == 'success') }}
+        if: ${{ (failure() && steps.lint.outcome == 'failure') || (success() && steps.lint.outcome == 'success') }}
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: bicep-lint.sarif
