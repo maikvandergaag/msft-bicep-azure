@@ -28,6 +28,7 @@ param env string
 
 var monitoringGroupName = res.getName('bicep-azure-mon', env, 'sponsor').resourceGroup
 var applicationGroupName = res.getName('bicep-azure-app', env, 'sponsor').resourceGroup
+var storageName = res.getName(name, env, '').storageAccount
 var logAnalyticsName = res.getName(name, env, '').logAnalytics
 var appInsightsName = res.getName(name, env, '').applicationInsights
 
@@ -67,4 +68,14 @@ module loganalytics 'module/loganalytics.bicep' = {
   }
   dependsOn: [monitoringGroup]
   scope: resourceGroup(monitoringGroupName)
+}
+
+module storage 'module/storageaccount.bicep' = {
+  name: 'deploy-storage'
+  params: {
+    name: storageName
+    location: location
+  }
+  dependsOn: [applicationGroup]
+  scope: resourceGroup(applicationGroupName)
 }
