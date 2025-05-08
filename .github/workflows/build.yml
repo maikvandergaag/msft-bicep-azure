@@ -44,7 +44,7 @@ jobs:
           ${{ toJson(steps.lint) }}
 
       - name: Upload SARIF file
-        if: ${{ steps.lint.outcome == 'failure' }}
+        if: steps.lint.outcome == 'failure'
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: bicep-lint.sarif
