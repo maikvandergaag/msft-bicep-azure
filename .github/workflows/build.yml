@@ -32,6 +32,16 @@ jobs:
           create-sarif: true
           markdown-report: false
           sarif-output-path: bicep-lint.sarif
+      - name: Test Bicep
+        run: |
+          ${{ toJson(steps.lint.outputs) }}
+
+          ${{ toJson(steps.lint.outcome) }}
+
+          ${{ toJson(steps.lint.conclusion) }}
+
+          ${{ toJson(steps.lint) }}
+
       - name: Upload SARIF file
         if: ${{ steps.lint.output.exit_code == 0 }}
         uses: github/codeql-action/upload-sarif@v3
