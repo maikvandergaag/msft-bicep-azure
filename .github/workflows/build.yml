@@ -16,6 +16,7 @@ permissions:
 jobs:
   build:
     environment: demo
+    name:  Build IaC
     runs-on: ubuntu-latest
     steps:
       - name: Azure login
@@ -32,7 +33,7 @@ jobs:
           markdown-report: false
           sarif-output-path: bicep-lint.sarif
       - name: Upload SARIF file
-        if: ${{ (steps.lint.conclusion == 'failure' || steps.lint.conclusion == 'success') }}
+        if: ${{ (steps.lint.outcome == 'failure' || steps.lint.outcome == 'success') }}
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: bicep-lint.sarif

@@ -16,6 +16,7 @@ permissions:
 jobs:
   build:
     environment: demo
+    name: Build incl IaC and Test
     runs-on: ubuntu-latest
     steps:
       - name: Azure login
